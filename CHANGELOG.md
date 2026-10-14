@@ -1,0 +1,52 @@
+# Changelog
+
+## 2026-10-12
+- Expanded the dashboard with clinic summary counts and staff tables for agents, ailments, therapies, and appointments.
+- Completed the MVP therapy catalog, ISO-8601 appointment booking and status workflow, and agent dashboard.
+- Added booking persistence, input validation, logged database errors, responsive navigation, end-to-end workflow tests, and empty/error states.
+- Marked Nano Phases 3–7 complete in the roadmap and recorded MVP acceptance criteria.
+- Completed Nano Phase 2 with ordered SQLite migrations, idempotent starter agents and ailments, agent-ailment links, server-rendered clinic workflows, and responsive JSX/CSS layout.
+- Implemented ordered SQLite migrations and seeded three fictional agents, starter ailments, and idempotent links from each agent to an ailment.
+- Updated Nano Phase 2 to require versioned SQLite migrations, a first agents-table migration, and idempotent fictional agent and ailment seed data with every seeded agent linked to at least one ailment.
+- Updated the feature plan, requirements, validation criteria, README, and tech-stack guidance to reflect the database setup.
+
+## 2026-10-09
+- Added the Nano Phase 2 feature plan, requirements, and validation criteria.
+- Implemented local SQLite storage and many-to-many agent, ailment, and therapy relationships.
+- Added server-rendered clinic pages and forms, with PicoCSS styling and responsive layout.
+- Added route, persistence, and relationship tests; enforced form length limits and preserved values on validation errors.
+- Documented the Node.js 22.5+ requirement for the built-in SQLite module.
+
+## 2026-10-08
+- Added a project-local changelog skill and initialized this date-based changelog from git history.
+- Updated the roadmap to combine phases 2-5 into a new Phase 2 and emphasize layout/CSS work.
+- Added a responsive design requirement for the product UI and updated the project documentation to reflect it.
+- Created a Vitest-based validation workflow and route tests for the Hello Hono app.
+- Updated docs and validation references to reflect the Vitest workflow and app scripts.
+- Added the `validate` script alongside the main test command in `package.json`.
+- Kept the app layout responsive with viewport metadata and CSS media queries.
+
+## 2026-10-07
+- Completed the Hello Hono phase and related validation work.
+- Implemented the Phase 1 Hello Hono app, including the Hono server, HTML layout, and stylesheet.
+- Added initial project specifications for the Hello Hono phase, including requirements and validation criteria.
+
+## 2026-10-05
+- Completed the constitution and final roadmap adjustments.
+- Updated project scaffolding for agent-host and stakeholder-driven requirements.
+- Added the initial project setup and agent-focused planning work for the clinic.
+
+## 2026-06-01
+- Added DeepLearning.AI resource links to the README.
+- Updated the course title in the README.
+
+## 2026-04-20
+- Renamed Lesson_NN folders to VideoNN_Title and updated the README.
+- Added a README to Lesson_04 to mirror Lesson_05.
+
+## 2026-04-16
+- Added prompts to all lessons.
+
+## 2026-04-14
+- Unpacked the changelog skill into the Lessons 09-13 folder.
+- Populated Lesson_11-13 and added a generic feature-spec skill.

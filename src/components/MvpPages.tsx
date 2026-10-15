@@ -8,6 +8,7 @@ import {
   listAilmentsForAgent,
   listAilmentsForTherapy,
   listBookings,
+  listFeedback,
   listTherapies,
 } from '../database';
 import type { Booking, BookingStatus, DashboardSummary } from '../database';
@@ -36,6 +37,7 @@ export const Dashboard = ({ database }: { database: DatabaseSync }) => {
   const ailments = listAilments(database);
   const therapies = listTherapies(database);
   const bookings = listBookings(database);
+  const feedback = listFeedback(database);
 
   return (
     <Layout>
@@ -45,6 +47,32 @@ export const Dashboard = ({ database }: { database: DatabaseSync }) => {
         <SummaryCard label="Agents" value={summary.agents} />
         <SummaryCard label="Open appointments" value={summary.openAppointments} />
         <SummaryCard label="Ailments in-flight" value={summary.ailmentsInFlight} />
+      </section>
+
+      <section aria-labelledby="dashboard-feedback-heading">
+        <h2 id="dashboard-feedback-heading">Feedback</h2>
+        <p>Submissions are visible to anyone with access to this dashboard.</p>
+        {feedback.length ? (
+          <div class="feedback-list">
+            {feedback.map((item) => (
+              <article key={item.id}>
+                <header>
+                  <strong>{item.category}</strong>
+                  {' · '}
+                  <time dateTime={item.submittedAt}>{item.submittedAt}</time>
+                </header>
+                <p>
+                  <strong>{item.name}</strong>
+                  {' · '}
+                  <a href={`mailto:${item.email}`}>{item.email}</a>
+                </p>
+                <p class="feedback-message">{item.message}</p>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p>No feedback has been submitted yet.</p>
+        )}
       </section>
 
       <section aria-labelledby="dashboard-agents-heading">

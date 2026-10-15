@@ -36,7 +36,7 @@ describe('AgentClinic MVP workflow', () => {
         .prepare('SELECT version FROM schema_migrations ORDER BY version')
         .all()
         .map((row) => row.version),
-    ).toEqual([1, 2, 3, 4, 5]);
+    ).toEqual([1, 2, 3, 4, 5, 6]);
 
     const firstCount = listTherapies(database).length;
     initializeDatabase(database);

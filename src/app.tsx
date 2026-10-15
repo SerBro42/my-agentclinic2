@@ -6,6 +6,7 @@ import {
   createAgent,
   createAilmentForAgent,
   createBooking,
+  createFeedback,
   createTherapyForAilment,
   getAgent,
   getAilment,
@@ -24,6 +25,9 @@ import {
   updateBookingStatus,
 } from './database';
 import type { BookingStatus } from './database';
+import { FeedbackPage } from './components/FeedbackPage';
+import { isFeedbackCategory, validateFeedback } from './feedback';
+import type { FeedbackFormValues } from './feedback';
 import { Layout } from './components/Layout';
 import {
   BookingForm,
@@ -359,6 +363,28 @@ export function createApp(database: DatabaseSync): Hono {
 
   app.get('/', (c) => c.html(<Layout />));
   app.get('/dashboard', (c) => c.html(<Dashboard database={database} />));
+  app.get('/feedback', (c) =>
+    c.html(<FeedbackPage submitted={c.req.query('submitted') === '1'} />),
+  );
+  app.post('/feedback', async (c) => {
+    const form = await c.req.parseBody();
+    const values: FeedbackFormValues = {
+      name: formValue(form, 'name'),
+      email: formValue(form, 'email'),
+      category: formValue(form, 'category'),
+      message: formValue(form, 'message'),
+    };
+    const error = validateFeedback(values);
+    if (error) {
+      return c.html(<FeedbackPage error={error} values={values} />, 400);
+    }
+
+    if (!isFeedbackCategory(values.category)) {
+      return c.html(<FeedbackPage error="Choose a feedback category." values={values} />, 400);
+    }
+    createFeedback(database, values.name, values.email, values.category, values.message);
+    return c.redirect('/feedback?submitted=1', 303);
+  });
   app.get('/agents', (c) => c.html(<AgentList database={database} />));
   app.post('/agents', async (c) => {
     const form = await c.req.parseBody();

@@ -77,6 +77,15 @@ time {
   min-width: 40rem;
 }
 
+.feedback-list article {
+  overflow-wrap: anywhere;
+}
+
+.feedback-message {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .table-status-form {
   display: flex;
   align-items: center;

@@ -3,6 +3,9 @@ import { dirname, resolve } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import type { SQLOutputValue } from 'node:sqlite';
 
+import { FEEDBACK_CATEGORIES, isFeedbackCategory } from './feedback';
+import type { FeedbackCategory } from './feedback';
+
 export interface Agent {
   id: number;
   name: string;
@@ -30,6 +33,15 @@ export interface Booking {
   status: BookingStatus;
   agentName: string;
   therapyName: string;
+}
+
+export interface Feedback {
+  id: number;
+  name: string;
+  email: string;
+  category: FeedbackCategory;
+  message: string;
+  submittedAt: string;
 }
 
 export interface DashboardSummary {
@@ -129,6 +141,28 @@ export function initializeDatabase(database: DatabaseSync): void {
           appointment_time TEXT NOT NULL CHECK (length(trim(appointment_time)) > 0),
           status TEXT NOT NULL DEFAULT 'scheduled'
             CHECK (status IN ('scheduled', 'completed', 'cancelled'))
+        )
+      `),
+    },
+    {
+      version: 6,
+      name: 'create_feedback',
+      apply: () => database.exec(`
+        CREATE TABLE IF NOT EXISTS feedback (
+          id INTEGER PRIMARY KEY,
+          name TEXT NOT NULL CHECK (
+            length(trim(name)) > 0 AND length(name) <= 120
+          ),
+          email TEXT NOT NULL CHECK (
+            length(trim(email)) > 0 AND length(email) <= 254
+          ),
+          category TEXT NOT NULL CHECK (
+            category IN (${FEEDBACK_CATEGORIES.map((category) => `'${category}'`).join(', ')})
+          ),
+          message TEXT NOT NULL CHECK (
+            length(trim(message)) > 0 AND length(message) <= 2000
+          ),
+          submitted_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
       `),
     },
@@ -287,6 +321,21 @@ function mapBooking(row: Record<string, SQLOutputValue>): Booking {
     status,
     agentName: stringField(row, 'agent_name'),
     therapyName: stringField(row, 'therapy_name'),
+  };
+}
+
+function mapFeedback(row: Record<string, SQLOutputValue>): Feedback {
+  const category = stringField(row, 'category');
+  if (!isFeedbackCategory(category)) {
+    throw new Error('Database returned an invalid feedback category');
+  }
+  return {
+    id: numberField(row, 'id'),
+    name: stringField(row, 'name'),
+    email: stringField(row, 'email'),
+    category,
+    message: stringField(row, 'message'),
+    submittedAt: stringField(row, 'submitted_at'),
   };
 }
 
@@ -508,6 +557,34 @@ export function updateBookingStatus(
   status: BookingStatus,
 ): void {
   database.prepare('UPDATE bookings SET status = ? WHERE id = ?').run(status, bookingId);
+}
+
+export function createFeedback(
+  database: DatabaseSync,
+  name: string,
+  email: string,
+  category: FeedbackCategory,
+  message: string,
+): number {
+  return lastInsertedId(
+    database
+      .prepare(`
+        INSERT INTO feedback (name, email, category, message)
+        VALUES (?, ?, ?, ?)
+      `)
+      .run(name, email, category, message).lastInsertRowid,
+  );
+}
+
+export function listFeedback(database: DatabaseSync): Feedback[] {
+  return database
+    .prepare(`
+      SELECT id, name, email, category, message, submitted_at
+      FROM feedback
+      ORDER BY submitted_at DESC, id DESC
+    `)
+    .all()
+    .map(mapFeedback);
 }
 
 export function listTherapiesForAgent(database: DatabaseSync, agentId: number): Therapy[] {

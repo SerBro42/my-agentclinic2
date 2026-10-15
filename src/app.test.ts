@@ -53,7 +53,7 @@ describe('AgentClinic Phase 2 routes', () => {
         .prepare('SELECT version FROM schema_migrations ORDER BY version')
         .all()
         .map((row) => row.version);
-      expect(migrationVersions).toEqual([1, 2, 3, 4, 5]);
+      expect(migrationVersions).toEqual([1, 2, 3, 4, 5, 6]);
 
       const agents = listAgents(freshDatabase);
       const ailments = listAilments(freshDatabase);

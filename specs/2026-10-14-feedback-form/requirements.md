@@ -18,6 +18,8 @@ Let visitors send useful feedback to AgentClinic, give clinic staff a place to r
 
 - **Location:** A simple, dedicated feedback page linked from the main navigation.
 - **Fields:** Name, email, category, and message. Treat all four as required.
+- **Categories:** General feedback, Bug report, Suggestion, and Other.
+- **Length limits:** Name 120 characters, email 254 characters, and message 2,000 characters.
 - **Submission:** Validate and save to SQLite, then confirm success to the submitter.
 - **Staff access:** Include a feedback list on the existing dashboard.
 - **Authentication:** The current application has no authentication. Use the existing dashboard access pattern and defer authentication; the feedback list is staff-facing, but is not access-controlled in this phase.
@@ -31,5 +33,4 @@ Let visitors send useful feedback to AgentClinic, give clinic staff a place to r
 - Use parameterized SQLite statements. Do not expose stack traces or internal database errors in user-facing responses.
 - Feedback is not displayed publicly, emailed, edited, deleted, or exported as part of this phase. No external notification service is introduced.
 - Because authentication is deferred, do not describe dashboard feedback as private or secure. Anyone able to access the dashboard can access submitted contact details; access control is a known limitation, not a guarantee.
-- The exact category labels and field length limits should be kept small, documented in the implementation, and covered by validation tests.
-
+- These category labels and field length limits must be enforced consistently in the form, server validation, SQLite constraints where applicable, and tests.

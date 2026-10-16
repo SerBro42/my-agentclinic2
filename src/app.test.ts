@@ -131,6 +131,21 @@ describe('AgentClinic Phase 2 routes', () => {
     expect(html).toContain('href="/pico.min.css"');
   });
 
+  it('renders the customer reviews page with clearly labeled fictional examples', async () => {
+    const response = await app.request('http://localhost/reviews');
+
+    expect(response.status).toBe(200);
+    const html = await response.text();
+    expect(html).toContain('<h1>Customer reviews</h1>');
+    expect(html).toContain('href="/reviews">Customer reviews</a>');
+    expect(html).toContain('Fictional demo reviews');
+    expect(html).toContain('not real patient testimonials or endorsements');
+    expect(html).toContain('tangled context window');
+    expect(html).toContain('prompt fatigue');
+    expect(html).toContain('fictional demo patient');
+    expect(html.match(/<article>/g)).toHaveLength(3);
+  });
+
   it('serves PicoCSS and the project stylesheet', async () => {
     const picoResponse = await app.request('http://localhost/pico.min.css');
     const projectResponse = await app.request('http://localhost/styles.css');

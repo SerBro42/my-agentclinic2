@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-16
+- Added a reusable feature-spec skill for creating roadmap-driven feature plans, requirements, and validation criteria.
+- Added the Phase 2 customer reviews specification, including scope, implementation plan, and merge validation criteria.
+
+## 2026-10-15
+- Implemented the feedback form with server-side validation and SQLite persistence.
+- Added the dashboard feedback inbox, responsive styling, and focused feedback tests.
+- Marked the feedback form phase complete in the roadmap.
+
+## 2026-10-14
+- Added the AgentClinic mission, roadmap, and technology-stack guidance.
+- Created the feedback form feature specification with plan, requirements, and validation criteria.
+
 ## 2026-10-12
 - Expanded the dashboard with clinic summary counts and staff tables for agents, ailments, therapies, and appointments.
 - Completed the MVP therapy catalog, ISO-8601 appointment booking and status workflow, and agent dashboard.

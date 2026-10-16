@@ -26,6 +26,7 @@ import {
 } from './database';
 import type { BookingStatus } from './database';
 import { FeedbackPage } from './components/FeedbackPage';
+import { ReviewsPage } from './components/ReviewsPage';
 import { isFeedbackCategory, validateFeedback } from './feedback';
 import type { FeedbackFormValues } from './feedback';
 import { Layout } from './components/Layout';
@@ -366,6 +367,7 @@ export function createApp(database: DatabaseSync): Hono {
   app.get('/feedback', (c) =>
     c.html(<FeedbackPage submitted={c.req.query('submitted') === '1'} />),
   );
+  app.get('/reviews', (c) => c.html(<ReviewsPage />));
   app.post('/feedback', async (c) => {
     const form = await c.req.parseBody();
     const values: FeedbackFormValues = {

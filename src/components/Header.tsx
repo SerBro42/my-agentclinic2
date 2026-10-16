@@ -24,6 +24,9 @@ export const Header = () => (
         <li>
           <a href="/feedback">Feedback</a>
         </li>
+        <li>
+          <a href="/reviews">Customer reviews</a>
+        </li>
       </ul>
     </nav>
   </header>

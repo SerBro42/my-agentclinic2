@@ -3,6 +3,8 @@
 ## 2026-10-16
 - Added a reusable feature-spec skill for creating roadmap-driven feature plans, requirements, and validation criteria.
 - Added the Phase 2 customer reviews specification, including scope, implementation plan, and merge validation criteria.
+- Added a navigation-linked customer reviews page with clearly labeled fictional demo reviews and focused route coverage.
+- Marked the customer reviews roadmap phase complete after tests, standard validation, and the production build passed.
 
 ## 2026-10-15
 - Implemented the feedback form with server-side validation and SQLite persistence.

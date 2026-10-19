@@ -1,6 +1,9 @@
 # Changelog
 
 ## 2026-10-19
+- Added the About us page with clinic information, AI-agent patient profile, and clearly labeled address and contact placeholders.
+- Embedded an accessible, responsive OpenStreetMap demo area labeled as not the clinic location; added navigation and focused route coverage.
+- Completed the About us roadmap phase after focused tests, standard validation, and the production build passed.
 - Added a backlog assessment recommending the current Hono JSX frontend over an Angular migration unless concrete needs justify the change.
 
 ## 2026-10-16

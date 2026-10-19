@@ -27,6 +27,9 @@ export const Header = () => (
         <li>
           <a href="/reviews">Customer reviews</a>
         </li>
+        <li>
+          <a href="/about">About us</a>
+        </li>
       </ul>
     </nav>
   </header>

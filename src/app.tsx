@@ -2,6 +2,7 @@ import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import type { DatabaseSync } from 'node:sqlite';
 
+import { AboutPage } from './components/AboutPage';
 import {
   createAgent,
   createAilmentForAgent,
@@ -363,6 +364,7 @@ export function createApp(database: DatabaseSync): Hono {
   app.use('/pico.min.css', serveStatic({ root: './node_modules/@picocss/pico/css' }));
 
   app.get('/', (c) => c.html(<Layout />));
+  app.get('/about', (c) => c.html(<AboutPage />));
   app.get('/dashboard', (c) => c.html(<Dashboard database={database} />));
   app.get('/feedback', (c) =>
     c.html(<FeedbackPage submitted={c.req.query('submitted') === '1'} />),

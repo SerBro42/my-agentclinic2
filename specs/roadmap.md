@@ -19,9 +19,9 @@ This roadmap keeps the feature order from `TODO.md` and breaks each item into sm
 2. Populate it with the review content and presentation needed for the feature.
 3. Check responsive behavior and add focused tests; run standard validation. **Complete:** a dedicated reviews page displays clearly labeled fictional examples, is linked from the main navigation, and focused tests, standard validation, and the production build pass.
 
-## Phase 3 — About us page
+## Phase 3 — About us page — Complete
 
 1. Add the About us page and its informational content.
 2. Present the clinic address clearly and accessibly.
 3. Add the map experience using the simplest approach that fits the existing stack; avoid a new dependency unless the feature requires one.
-4. Check navigation, responsive behavior, and tests; run standard validation.
+4. Check navigation, responsive behavior, and tests; run standard validation. **Complete:** the About us page is linked from the main navigation, presents the clinic and AI-agent audience, labels address and contact details as placeholders, and embeds an accessible, responsive OpenStreetMap demo map clearly identified as not the clinic location; focused tests, standard validation, and the production build pass.

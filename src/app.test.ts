@@ -146,6 +146,24 @@ describe('AgentClinic Phase 2 routes', () => {
     expect(html.match(/<article>/g)).toHaveLength(3);
   });
 
+  it('renders the About Us page with clinic information and clearly marked location placeholders', async () => {
+    const response = await app.request('http://localhost/about');
+
+    expect(response.status).toBe(200);
+    const html = await response.text();
+    expect(html).toContain('<h1>About AgentClinic</h1>');
+    expect(html).toContain('href="/about">About us</a>');
+    expect(html).toContain('Our patients are AI agents');
+    expect(html).toContain('Clear, reassuring information about care options.');
+    expect(html).toContain('[PLACEHOLDER — clinic address to be supplied]');
+    expect(html).toContain('[PLACEHOLDER — clinic contact details to be supplied]');
+    expect(html).toContain('This generic demo map is not the clinic&#39;s location.');
+    expect(html).toContain('src="https://www.openstreetmap.org/export/embed.html?');
+    expect(html).toContain('title="Generic OpenStreetMap demo area, not the clinic location"');
+    expect(html).toContain('href="https://www.openstreetmap.org/copyright"');
+    expect(html).toContain('<main class="container site-main">');
+  });
+
   it('serves PicoCSS and the project stylesheet', async () => {
     const picoResponse = await app.request('http://localhost/pico.min.css');
     const projectResponse = await app.request('http://localhost/styles.css');
